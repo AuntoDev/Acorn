@@ -1,0 +1,476 @@
+# Welcome to the ACORN CONFIG FILE!
+# Here, you can change Acorn's settings and adjust it to
+# your liking. Thanks for using Acorn!
+#
+#
+# HOW DOES CHECK PRIORITY WORK?
+#  -> Some checks include a "priority" setting. This allows
+#     you to lower the amount of strain on your server by
+#     only checking a player when absolutely needed. We
+#     allow the following options:
+#       -> normal - Players are checked whenever they move
+#                   no matter how far. (Recommended)
+#       -> low - Only check players when they move from one
+#                block to another. This is not recommended
+#                as it can lead to bypasses and/or very
+#                slow detection and mitigation.
+#
+# HOW DO ACTIONS WORK?
+#  -> You can get Acorn to perform certain actions when VLs
+#     are reached. This can include cancelling the user's
+#     action, kicking them or even outright banning them.
+#
+# WHAT DOES "CANCELLING" ACTUALLY DO?
+#  -> When an action is canceled, the server will pull the
+#     user back. For example, if a user attempts to fly and
+#     Acorn detected and canceled their move event, they
+#     would be "lagged" back. On the player's screen, it's
+#     normally quite obvious that an anti-cheat is cancelling
+#     their actions.
+#
+# WHAT DO THE PACKET CHECKS DO?
+#  -> Using ProtocolLib, Acorn will view raw packets sent to
+#     the server by players and their clients. This allows
+#     Acorn to detect things such as Timer. We highly recommend
+#     you do not disable packet checks without knowing what
+#     you're doing.
+#
+# CAN YOU EXPLAIN SOME HACKS TO ME?
+#  -> Fly - Allows players to fly, sometimes like in creative
+#           mode. Largely used and easily detected.
+#  -> Speed - Allows players to go faster than usual. Largely
+#             used but slightly complicated to detect.
+#  -> Timer - Allows players to slow down or speed up time or
+#             their client's TPS. We detect this using raw
+#             packet logs and requests.
+#  -> BoatFly - A less well-known type of Fly. Using this hack,
+#               players can fly in bots (bypassing some checks).
+#               Don't worry, we have checks built just to detect
+#               this and similar hacks.
+#
+# WHAT'S THE DIFFERENCE BETWEEN CANCELLING AND RUBBERBANDING?
+#  -> When an event is canceled, the server discards the
+#     action just like it never happened. It will look
+#     like nothing happened to other players.
+#  -> When a player is rubberbanded, their event is both
+#     canceled AND they are teleported back to their last
+#     legit location. We normally use this for speed checks
+#     to make sure the client is forced back.
+#  -> You can't decide whether a player has their event canceled
+#     or rubberbanded. Both methods do the same thing at the end
+#     of the day: prevent illegal actions.
+#
+# OKAY, SO WHAT'S THE CATCH?
+#  -> There isn't one. You can use Acorn on any server - big or
+#     small, global network to community. Acorn will help keep
+#     your server protected from hackers and exploiters.
+
+
+# BASIC CONFIG
+
+# When enabled, Acorn will not make any attempt to setback or
+# cancel any suspicious or malicious actions. This can lead to
+# bypassed when enabled. Don't mess with this if you don't
+# understand the risks.
+silent: false
+
+# Should Acorn broadcast kicks?
+broadcast: false
+
+# Should Acorn allow users with the acorn.bypass permission
+# bypass all checks? Disable this if you're testing the plugin!
+allow-bypass: true
+
+# When enabled, Acorn will log every violation to console. This
+# WILL cause a lot of spam. Do not enable this unless you've
+# been asked to or you are an advanced user.
+debug: false
+
+# Should Acorn log to a file? This is recommended.
+log: true
+
+
+# CHECKS
+
+moved-wrongly:
+  enabled: true
+
+  # What should the threshold be set to? Don't change this
+  # unless you've looked through Acorn's code and know exactly
+  # what this does. Incorrect values will break this check.
+  # Recommended: 0.01 (1/100s of a block)
+  threshold: 0.01
+
+  # The amount of TICKS it takes for a VL point to be removed.
+  # Recommended: 200 (10 seconds)
+  decay: 80
+
+  # When should Acorn notify players with the acorn.notify
+  # permission to violations?
+  alert:
+    - 12
+    - 18
+
+  # What mitigation steps should Acorn take?
+  mitigation:
+    # When should Acorn start cancelling effected actions?
+    cancel: 10
+
+    # When should Acorn /kill offending players? This action
+    # is only performed when this VL is hit, not passing
+    # above it.
+    kill: 0
+
+    # When should Acorn kick offending players?
+    kick: 25
+
+fly:
+  enabled: true
+
+  # When Acorn kicks someone for fly, should Acorn hide its use?
+  # When enabled, the kick reason will be set to the Vanilla one,
+  # "Flying is not enabled on this server". This may make less
+  # smart hackers think that their hacks aren't working, not that
+  # an anti-cheat is stepping in.
+  hide-kicks: false
+
+  # We recommend you leave this option. If you do change it, you
+  # must change the required VL levels too.
+  priority: "normal"
+
+  # A really sensitive "only going up" check.
+  generic:
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 100 (5 seconds)
+    decay: 100
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 25
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 25
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 55
+
+  # Detects the "Mineplex" flight bypass.
+  mineplex:
+    # What Y level speeds should be blocked? DO NOT CHANGE THIS
+    # UNLESS YOU REALLY, REALLY KNOW WHAT YOU ARE DOING. CHANGING
+    # THIS CAN CAUSE BYPASSES AND FALSE FLAGS.
+    fingerprints:
+      - 0.004000000189989805
+      - 0.03200000151991844
+      - 6.023999968077987
+      - 0.3499999940395355
+      - 1.9959999998100102
+      - 1.9919999996200204
+      - 1.9839999992400408
+      - 1.9959999998100102
+      - 1.9879999994300306
+
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 200 (10 seconds)
+    decay: 200
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 1
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 1
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 5
+
+  # Detects attempts at spoofing the ground location.
+  ground-spoof:
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 90 (4.5 seconds)
+    decay: 90
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 15
+      - 20
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 15
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 25
+
+speed:
+  enabled: true
+
+  # Detects INSANE speeds that are completely impossible in vanilla Minecraft.
+  insanity:
+    # What should the maximum blocks per move be? This should be
+    # high. This check is only to detect truly insane, game
+    # breaking speeds. The number must include a decimal place.
+    # Recommended: 5.3
+    max: 5.3
+
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 600 (30 seconds)
+    decay: 600
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 1
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 1
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 3
+
+  # Detects the AAC speed bypass.
+  aac:
+    # The list of AAC speed fingerprints. This check works by
+    # blacklisting known-bad speeds.
+    fingerprints:
+      - 0.6305560309114561
+
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 60 (3 seconds)
+    decay: 60
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 10
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 7
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 20
+
+  # Limits player speeds.
+  limit:
+    # Should Acorn ignore falling players? (Recommended)
+    ignore-falling: true
+
+    # What should the required difference between Y levels be?
+    # THis determines if a player should be limited by the normal
+    # or with-velocity maximum. Don't change this.
+    required-difference: 0.05
+
+    # The amount of TICKS it takes for a VL point to be removed.
+    # Recommended: 300 (10 seconds)
+    decay: 200
+
+    # The limits that effect players.
+    limits:
+      # Only apply when walking:
+      walking:
+        # The normal walking limit.
+        normal: 0.25
+        # The limit that applies when players have a changing
+        # Y level (like when they're falling or jumping).
+        with-velocity: 0.55
+
+      # Only applies when sprinting:
+      sprinting:
+        # The normal sprinting limit.
+        normal: 0.35
+        # The limit that applies when players have a changing
+        # Y level (like when they're falling or jumping).
+        with-velocity: 0.78
+
+      # Only applies when crouching:
+      crouching:
+        # The normal crouching limit.
+        normal: 0.12
+        # The limit that applies when players have a changing
+        # Y level (like when they're falling or jumping).
+        with-velocity: 0.47
+
+    # When should Acorn notify players with the acorn.notify
+    # permission to violations?
+    alert:
+      - 15
+      - 24
+
+    # What mitigation steps should Acorn take?
+    mitigation:
+      # When should Acorn start cancelling effected actions?
+      cancel: 9
+
+      # When should Acorn /kill offending players? This action
+      # is only performed when this VL is hit, not passing
+      # above it.
+      kill: 0
+
+      # When should Acorn kick offending players?
+      kick: 31
+
+jesus:
+  enabled: true
+
+  # The amount of TICKS it takes for a VL point to be removed.
+  # Recommended: 200 (10 seconds)
+  decay: 200
+
+  # When should Acorn notify players with the acorn.notify
+  # permission to violations?
+  alert:
+    - 5
+    - 15
+    - 27
+
+  # What mitigation steps should Acorn take?
+  mitigation:
+    # When should Acorn start cancelling effected actions?
+    cancel: 4
+
+    # When should Acorn /kill offending players? This action
+    # is only performed when this VL is hit, not passing
+    # above it.
+    kill: 0
+
+    # When should Acorn kick offending players?
+    kick: 35
+
+out-of-vision:
+  enabled: true
+
+  # The amount of TICKS it takes for a VL point to be removed.
+  # Recommended: 500 (25 seconds)
+  decay: 500
+
+  # When should Acorn notify players with the acorn.notify
+  # permission to violations?
+  alert:
+    - 10
+    - 20
+
+  # What mitigation steps should Acorn take?
+  mitigation:
+    # When should Acorn start cancelling effected actions?
+    cancel: 5
+
+    # When should Acorn /kill offending players? This action
+    # is only performed when this VL is hit, not passing
+    # above it.
+    kill: 0
+
+    # When should Acorn kick offending players?
+    kick: 25
+
+timer:
+  enabled: true
+
+  # The amount of TICKS it takes for a VL point to be removed.
+  # Recommended: 100 (5 seconds)
+  decay: 100
+
+  # The maximum amount of position packets that can be
+  # sent a second. We recommend you leave some leeway to
+  # account for lag and TPS drops. For a bit of background,
+  # the vanilla client normally sends a maximum of 20 position
+  # packets per second.
+  limit: 45
+
+  # How long should it take for Acorn to forget a position
+  # packet? We recommend 20 ticks.
+  removal: 20
+
+  # When should Acorn notify players with the acorn.notify
+  # permission to violations?
+  alert:
+    - 2
+
+  # What mitigation steps should Acorn take?
+  mitigation:
+    # When should Acorn start cancelling effected packets?
+    cancel: 2
+
+    # When should Acorn /kill offending players? This action
+    # is only performed when this VL is hit, not passing
+    # above it. IN THIS CASE, USING THIS OPTION IS HIGHLY
+    # NOT RECOMMENDED. DO NOT /KILL PLAYERS WHO SEND BAD
+    # PACKETS - IT DOES NOT STOP THEM FROM DOING SO.
+    kill: 0
+
+    # When should Acorn kick offending players?
+    kick: 7
+
+
+# SECURITY
+
+# Should Acorn hide itself from players? When enabled, players
+# who don't have the acorn.use permission wont be able to run
+# any Acorn commands.
+hide-commands: false
+
+# What message should we send players who try to use Acorn
+# commands without the acorn.use permission? The default
+# one we set is the Vanilla unknown command message:
+# Unknown command. Type "/help" for help.
+hide-message: "&fUnknown command. Type \"/help\" for help."
+
+
+# ------ DO NOT TOUCH ANYTHING BELOW THIS LINE ------
+
+config-version: 1
+
+
+#  Copyright (C) Aunto Development 2020.
+#  This code is part of the Acorn Anti-Cheat
+#  project by Aunto Development, led by Ollie.
+#
+#  Licensed under:
+#   GNU General Public License v3.0
+#     -> Permissions of this strong copyleft
+#        license are conditioned on making
+#        available complete source code of
+#        licensed works and modifications,
+#        which include larger works using a
+#        licensed work, under the same license.
+#        Copyright and license notices must be
+#        preserved. Contributors provide an
+#        express grant of patent rights.
+#
+#  >> https://github.com/Aunto-Development-Group/Acorn <<

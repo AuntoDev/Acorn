@@ -1,0 +1,21 @@
+name: Acorn
+version: BETA
+api-version: 1.8
+author: Aunto Development
+website: https://auntodev.com
+load: STARTUP
+prefix: "> AcornAC <"
+main: com.auntodev.Acorn.Acorn
+depend: [ProtocolLib]
+commands:
+  acorn:
+    aliases: [ac, acornac, cheat]
+    usage: /acorn [...]
+    description: The main command for Acorn.
+permissions:
+  acorn.notify:
+    default: op
+  acorn.reload:
+    default: op
+  acorn.verbose:
+    default: op

@@ -1,0 +1,39 @@
+# The alert message sent to players with the acorn.notify
+# permission.
+alert-message: "&c%player% &7failed &c%check% &7in &c%world%&7. Their VL is now &c%vl%&7."
+
+# The message Acorn sends players it /kills. We recommend you
+# send one to reduce confusion.
+kill-message: "&cYou were killed by &6Acorn&c: &firregular gameplay"
+
+# The message that is shown to players when they are kicked.
+kick-message:
+  - "&cYou were kicked by &6Acorn&c: &fIrregular gameplay"
+  - "&8Please disable any mods you have."
+
+# The message that is broadcasted when a player is kicked
+# by Acorn or one of its checks.
+kick-broadcast: "&e%player% has been kicked for cheating."
+
+# ------ DO NOT TOUCH ANYTHING BELOW THIS LINE ------
+
+config-version: 1
+
+
+#  Copyright (C) Aunto Development 2020.
+#  This code is part of the Acorn Anti-Cheat
+#  project by Aunto Development, led by Ollie.
+#
+#  Licensed under:
+#   GNU General Public License v3.0
+#     -> Permissions of this strong copyleft
+#        license are conditioned on making
+#        available complete source code of
+#        licensed works and modifications,
+#        which include larger works using a
+#        licensed work, under the same license.
+#        Copyright and license notices must be
+#        preserved. Contributors provide an
+#        express grant of patent rights.
+#
+#  >> https://github.com/Aunto-Development-Group/Acorn <<
