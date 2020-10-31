@@ -8,4 +8,4 @@ The following versions are currently supported:
 | > BETA  | Yes                |
 
 ## Reporting a Vulnerability
-Email: security@auntodev.com
+Email: <security@auntodev.com>
