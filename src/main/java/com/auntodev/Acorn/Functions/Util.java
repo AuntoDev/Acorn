@@ -16,7 +16,7 @@
          preserved. Contributors provide an
          express grant of patent rights.
 
-    >> https://github.com/Aunto-Development-Group/Acorn <<
+    >> https://github.com/AuntoDev/Acorn <<
 
  */
 
