@@ -16,7 +16,7 @@
          preserved. Contributors provide an
          express grant of patent rights.
 
-    >> https://github.com/Aunto-Development-Group/Acorn <<
+    >> https://github.com/AuntoDev/Acorn <<
 
  */
 
@@ -37,9 +37,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class Check {
