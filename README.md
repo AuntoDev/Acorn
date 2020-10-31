@@ -7,17 +7,39 @@ What hacks does Acorn block? Good question. Here's a list, Acorn may block more:
   - 3D
   - Vanilla/Creative
   - GroundSpoof
-  - Mineplex/AAC bypass
+  - Mineplex bypass
   - BoatFly*
 - Speed:
-  - Speed limits
-  - Impossible speeds
-  - Change in speed*
-  - Entity speed*
+  - BHop
+  - VHop
+  - LowJump
+  - Vanilla
+  - NCP/AAC bypass
+  - Float
 - Jesus
 - Invalid moves
+- KillAura
 
 Remember, Acorn will *probably* block hacks not listed here. Any hacks marked with a * are pending a check (will be added soon).
+
+## Checks
+- Combat.OutOfVision
+
+- Movement.Fly.Generic
+- Movement.Fly.Glide
+- Movement.Fly.GroundSpoof
+- Movement.Fly.Mineplex
+
+- Movement.Speed.Insanity
+- Movement.Speed.Limit
+
+- Movement.Jesus
+- Movement.MovedWrongly
+
+- Packets.Timer
+
+## ProtocolLib
+ProtocolLib is an Acorn **dependency**. Acorn requires it to function.
 
 ## How are patches processed?
 **Urgent patches are issued as a security advisory.** Any other patches or bug fixes are either dealt with via pull-requests and issues, or release updates.
